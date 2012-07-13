@@ -1,5 +1,5 @@
 (ns get-geotiff-info.core
-  (:gen-class)
+  (:gen-class :main true)
   (:require [geotiff.core :as geo]))
 
 (defn -main
