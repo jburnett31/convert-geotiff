@@ -10,7 +10,15 @@
     [:name "VARCHAR(255)" "NOT NULL"]
     [:extent "VARCHAR(255)" "NOT NULL"]
     [:timestamp "DATE"]
-    :table-spec "Engine=InnoDB"]})
+    :table-spec "Engine=InnoDB"]
+   :employers
+   [[:id "SERIAL UNIQUE PRIMARY KEY"]
+    [:name "VARCHAR(255)" "NOT NULL"]]
+   :employees
+   [[:id "SERIAL UNIQUE PRIMARY KEY"]
+    [:first_name "VARCHAR(255)" "NOT NULL"]
+    [:last_name "VARCHAR(255)" "NOT NULL"]
+    [:employer_id "Integer" "NOT NULL"]]})
 
 (defn drop-tables
   ([] (drop-tables (keys table-specs)))
