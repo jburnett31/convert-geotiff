@@ -37,14 +37,14 @@
         [scale-x scale-y _] (geo/get-model-pixel-scales rootNode)
         [width height] (try (geo/get-dimensions reader) (catch Exception e))
         ]
-    {:top y1 :left x1 :bottom (- y1 (* height scale-y)) :right (+ x1 (* width scale-x))}
+    {:ymax y1 :xmin x1 :ymin (- y1 (* height scale-y)) :xmax (+ x1 (* width scale-x))}
     ))
 
 (defn create-db-record [filepath]
   (let [[image_path name] (split-filepath filepath)
         timestamp (format-date name)
         extent (json-str (get-extent filepath))]
-    (raster/create {:image_path image_path :name name :timestamp timestamp :extent extent})))
+    (raster/create {:image_path image_path :name (apply str (butlast (change-extension name ""))) :timestamp timestamp :extent extent})))
 
 (defn convert-to-jpg [filepath]
   (let [new-name (change-extension filepath "jpg")]
