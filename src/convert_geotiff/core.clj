@@ -7,7 +7,8 @@
            [javax.imageio ImageIO])
   (:use [im4clj.core :only (convert)]
         clojure.java.io
-        convert-geotiff.models.config))
+        convert-geotiff.models.config
+        [clojure.data.json :only (json-str)]))
 
 (def img-directory "/home/jeff/Documents/geotiff/")
 
@@ -42,7 +43,7 @@
 (defn create-db-record [filepath]
   (let [[image_path name] (split-filepath filepath)
         timestamp (format-date name)
-        extent (str (get-extent filepath))]
+        extent (json-str (get-extent filepath))]
     (raster/create {:image_path image_path :name name :timestamp timestamp :extent extent})))
 
 (defn convert-to-jpg [filepath]
